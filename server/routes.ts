@@ -1,7 +1,8 @@
 import * as express from 'express';
 
-import {fetchCompassQLBuildSchema, fetchCompassQLRecommend, Schema} from 'datavoyager/build/src/api/api';
-import {Data} from 'vega-lite/build/src/data';
+import {fetchCompassQLBuildSchema, fetchCompassQLRecommend, Schema} from 'datavoyager/build/api/api';
+import {ResultPlotWithKey} from 'datavoyager/build/models/result';
+import {Data, InlineData} from 'vega-lite/build/src/data';
 import {serializeSchema} from './utils';
 
 const router = express.Router();
@@ -21,11 +22,11 @@ router.route('/').get((req: express.Request, res: express.Response) => {
 router.route('/recommend').post((req: express.Request, res: express.Response) => {
   const query = req.body.query;
   const fieldSchemas = req.body.schema;
-  const data = (req.body.data as Data);
+  const data = (req.body.data as InlineData);
   const schema: Schema = new Schema({fields: fieldSchemas});
 
   fetchCompassQLRecommend(query, schema, data).then(
-    result => {
+    (result: ResultPlotWithKey[]) => {
       res.status(200).send(result);
     }
   );
