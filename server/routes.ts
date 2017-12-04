@@ -2,7 +2,7 @@ import * as express from 'express';
 
 import {fetchCompassQLBuildSchema, fetchCompassQLRecommend, Schema} from 'datavoyager/build/api/api';
 import {ResultPlotWithKey} from 'datavoyager/build/models/result';
-import {Data, InlineData} from 'vega-lite/build/src/data';
+import {InlineData} from 'vega-lite/build/src/data';
 import {serializeSchema} from './utils';
 
 const router = express.Router();
